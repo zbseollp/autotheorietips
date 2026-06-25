@@ -11,26 +11,53 @@ const recent = await getRecentPosts(6);
 
   <!-- Bold full-width hero -->
   <section class="bg-teal-600 text-white overflow-hidden relative">
-    <Container class="relative py-20 md:py-28">
-      <div class="max-w-3xl">
-        <div class="inline-block bg-teal-800 text-teal-200 text-xs font-bold px-3 py-1 rounded mb-6 uppercase tracking-widest">
-          Gratis · Direct beginnen · Geen account
+    <Container class="relative py-16 md:py-24">
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+        <!-- Links: headline + CTA -->
+        <div>
+          <div class="inline-block bg-teal-800 text-teal-200 text-xs font-bold px-3 py-1 rounded mb-6 uppercase tracking-widest">
+            Gratis · Direct beginnen · Geen account
+          </div>
+          <h1 class="text-5xl font-black tracking-tighter leading-none sm:text-7xl">
+            THEORIE<br/>
+            <span class="text-teal-200">TIPS.</span>
+          </h1>
+          <p class="mt-6 text-teal-100 text-lg leading-relaxed">
+            Geen saaie theorieboeken. Concrete tips die werken. Slaag in één keer voor je CBR theorie-examen.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="/blog/" class="bg-white text-teal-800 font-black px-8 py-3 text-sm hover:bg-teal-50 transition-colors rounded-full">
+              Alle tips bekijken →
+            </a>
+            <a href="/rijbewijs-halen/" class="border border-teal-400 text-white font-bold px-6 py-3 text-sm hover:bg-teal-500 transition-colors rounded-full">
+              Rijbewijs halen
+            </a>
+          </div>
         </div>
-        <h1 class="text-5xl font-black tracking-tighter leading-none sm:text-7xl">
-          THEORIE<br/>
-          <span class="text-teal-200">TIPS.</span>
-        </h1>
-        <p class="mt-6 text-teal-100 text-lg max-w-lg leading-relaxed">
-          Geen saaie theorieboeken. Concrete tips die werken. Slaag in één keer voor je CBR theorie-examen met onze gratis tips en strategieën.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-4">
-          <a href="/blog/" class="bg-white text-teal-800 font-black px-8 py-3 text-sm hover:bg-teal-50 transition-colors rounded-full">
-            Alle tips bekijken →
-          </a>
-          <a href="/rijbewijs-halen/" class="border border-teal-400 text-white font-bold px-6 py-3 text-sm hover:bg-teal-500 transition-colors rounded-full">
-            Rijbewijs halen
-          </a>
+
+        <!-- Rechts: 3 snelle tips als preview -->
+        <div class="space-y-3">
+          {[
+            { n: "01", title: "Begin 2 weken vroeg", tip: "Eén uur per dag werkt veel beter dan alles op één dag inplannen." },
+            { n: "02", title: "Train gevaarherkenning apart", tip: "Het levert de meeste fouten op — het is een andere vaardigheid dan kennis." },
+            { n: "03", title: "Begrijp de logica", tip: "Snap de reden achter een regel en je onthoudt hem vanzelf." },
+          ].map(({ n, title, tip }) => (
+            <div class="flex items-start gap-4 bg-white/10 rounded-xl px-4 py-3 border border-white/10">
+              <div class="text-2xl font-black text-teal-300 leading-none shrink-0 mt-0.5 font-mono">{n}</div>
+              <div>
+                <div class="font-bold text-white text-sm leading-snug">{title}</div>
+                <div class="text-teal-200 text-xs mt-1 leading-relaxed">{tip}</div>
+              </div>
+            </div>
+          ))}
+          <div class="pt-1 text-center">
+            <a href="/blog/" class="text-xs font-bold text-teal-300 hover:text-white uppercase tracking-widest transition-colors">
+              Alle tips bekijken →
+            </a>
+          </div>
         </div>
+
       </div>
     </Container>
   </section>
