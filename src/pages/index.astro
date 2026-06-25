@@ -1,0 +1,180 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+import BlogPostCard from "@components/BlogPostCard.astro";
+import { getRecentPosts } from "@lib/posts";
+import { SITE } from "@lib/site";
+
+const recent = await getRecentPosts(6);
+---
+<BaseLayout title={`${SITE.name} — De beste tips voor je theorie-examen`} description={SITE.description}>
+
+  <!-- Bold full-width hero -->
+  <section class="bg-teal-600 text-white overflow-hidden relative">
+    <Container class="relative py-20 md:py-28">
+      <div class="max-w-3xl">
+        <div class="inline-block bg-teal-800 text-teal-200 text-xs font-bold px-3 py-1 rounded mb-6 uppercase tracking-widest">
+          Gratis · Direct beginnen · Geen account
+        </div>
+        <h1 class="text-5xl font-black tracking-tighter leading-none sm:text-7xl">
+          THEORIE<br/>
+          <span class="text-teal-200">TIPS.</span>
+        </h1>
+        <p class="mt-6 text-teal-100 text-lg max-w-lg leading-relaxed">
+          Geen saaie theorieboeken. Concrete tips die werken. Slaag in één keer voor je CBR theorie-examen met onze gratis tips en strategieën.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="/blog/" class="bg-white text-teal-800 font-black px-8 py-3 text-sm hover:bg-teal-50 transition-colors rounded-full">
+            Alle tips bekijken →
+          </a>
+          <a href="/rijbewijs-halen/" class="border border-teal-400 text-white font-bold px-6 py-3 text-sm hover:bg-teal-500 transition-colors rounded-full">
+            Rijbewijs halen
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Gekleurde stat-blokken -->
+  <section class="grid grid-cols-2 sm:grid-cols-4">
+    {[
+      { n: "65", label: "Examenvragen", bg: "bg-slate-900 text-white" },
+      { n: "77%", label: "Slagingsnorm", bg: "bg-teal-700 text-white" },
+      { n: "45 min", label: "Examenduur", bg: "bg-teal-600 text-white" },
+      { n: "Gratis", label: "Altijd en voor iedereen", bg: "bg-teal-500 text-white" },
+    ].map(({ n, label, bg }) => (
+      <div class={`${bg} flex flex-col items-center justify-center py-8 px-4 text-center`}>
+        <div class="text-2xl font-black leading-none">{n}</div>
+        <div class="text-xs font-bold mt-1.5 opacity-70 uppercase tracking-wider">{label}</div>
+      </div>
+    ))}
+  </section>
+
+  <!-- Top 3 beste tips -->
+  <Container class="py-(--spacing-section)">
+    <p class="text-xs font-bold uppercase tracking-widest text-teal-600 mb-2">Direct toepasbaar</p>
+    <h2 class="text-3xl font-black tracking-tight text-slate-900 mb-8">Onze 3 beste tips</h2>
+    <div class="grid gap-5 sm:grid-cols-3">
+      {[
+        { n: "#01", title: "Begin 2 weken vroeg", body: "Eén uur per dag werkt veel beter dan alles op één dag. Spreid je studie en doe dagelijks een kort proefexamen om je voortgang te meten." },
+        { n: "#02", title: "Focus op gevaarherkenning", body: "Dit onderdeel levert de meeste fouten op bij het CBR examen. Oefen specifiek op het herkennen van gevaarlijke situaties — het is een eigen vaardigheid." },
+        { n: "#03", title: "Begrijp de logica", body: "Verkeersregels hebben een systeem. Wie dat begrijpt hoeft minder te stampen. Snap de reden achter een regel en je onthoudt hem automatisch beter." },
+      ].map(({ n, title, body }) => (
+        <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-teal-300 transition-colors">
+          <div class="text-3xl font-black text-teal-200 mb-3">{n}</div>
+          <h3 class="font-extrabold text-slate-900 mb-2">{title}</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">{body}</p>
+        </div>
+      ))}
+    </div>
+  </Container>
+
+  <!-- Recente tips -->
+  <section class="bg-slate-50 border-y border-slate-200">
+    <Container class="py-(--spacing-section)">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-teal-600 mb-1">Vers gepubliceerd</p>
+          <h2 class="text-3xl font-black tracking-tight text-slate-900">Recente tips</h2>
+        </div>
+        <a href="/blog/" class="text-sm font-black text-teal-600 hover:text-teal-800 uppercase tracking-wide">
+          Alle tips →
+        </a>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {recent.map((p, i) => <BlogPostCard post={p} index={i} />)}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Hoe werkt het / 3 stappen -->
+  <Container class="py-(--spacing-section)">
+    <p class="text-xs font-bold uppercase tracking-widest text-teal-600 mb-2">Aanpak</p>
+    <h2 class="text-3xl font-black tracking-tight text-slate-900 mb-8">Zo gebruik je deze tips</h2>
+    <div class="grid gap-5 sm:grid-cols-3">
+      {[
+        { n: "1", title: "Lees de tips", body: "Begin met de meest relevante tips voor jouw situatie. Elke tip is kort, concreet en direct toepasbaar — geen ellenlange theorie." },
+        { n: "2", title: "Pas toe bij het oefenen", body: "Gebruik de tips als leidraad tijdens het studeren. Doe proefexamens en check waar je nog fouten maakt." },
+        { n: "3", title: "Ga naar het examen", body: "Goed voorbereid naar het CBR. Vertrouw op je voorbereiding, gebruik onze examenstrategie en slaag in één keer." },
+      ].map(({ n, title, body }) => (
+        <div class="relative bg-white border-2 border-slate-100 rounded-2xl p-6">
+          <div class="w-9 h-9 rounded-full bg-teal-600 text-white flex items-center justify-center font-black text-sm mb-4">{n}</div>
+          <h3 class="font-bold text-slate-900 mb-2">{title}</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">{body}</p>
+        </div>
+      ))}
+    </div>
+  </Container>
+
+  <!-- Dark tip blok -->
+  <section class="bg-slate-900">
+    <Container class="py-14 grid sm:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="text-teal-400 text-xs font-bold uppercase tracking-widest mb-3">Slimste tip</p>
+        <h2 class="text-3xl font-black text-white leading-tight">
+          Gevaarherkenning apart oefenen.
+        </h2>
+        <p class="mt-4 text-slate-400 text-sm leading-relaxed">
+          De meeste mensen zakken door gevaarherkenning, niet door kennisvragen. Het is een andere vaardigheid die apart geoefend moet worden. Begin er vroeg mee.
+        </p>
+        <a href="/theorie-tips/" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-5 py-2.5 text-sm font-bold rounded-lg transition-colors mt-5">
+          Meer theorie tips →
+        </a>
+      </div>
+      <div class="space-y-3">
+        {[
+          "Oefen gevaarherkenning elke dag apart",
+          "Kijk naar het hele beeld, niet alleen de auto voor je",
+          "Reageer vroeg — niet wachten tot het gevaar duidelijk is",
+          "Doe meerdere proefexamens in examencondities",
+          "Slaap goed de avond voor het examen",
+        ].map((tip) => (
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-teal-600 flex items-center justify-center shrink-0 mt-0.5">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-slate-300 text-sm">{tip}</span>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- FAQ -->
+  <Container class="max-w-2xl py-(--spacing-section)">
+    <p class="text-xs font-bold uppercase tracking-widest text-teal-600 mb-2">Vragen</p>
+    <h2 class="text-3xl font-black tracking-tight text-slate-900 mb-8">Veelgesteld</h2>
+    <div class="space-y-0 border-t-2 border-slate-900">
+      {[
+        { q: "Hoe snel kan ik het theorie-examen halen?", a: "Met 1-2 uur studie per dag ben je in 2 weken klaar. Veel mensen halen het binnen 2-4 weken. Oefen elke dag, ook al is het maar kort." },
+        { q: "Mag ik het examen meerdere keren doen?", a: "Ja, er is geen limiet. Na drie mislukte pogingen is er extra wachttijd, maar je kunt het altijd opnieuw proberen." },
+        { q: "Wat is het moeilijkste onderdeel?", a: "Gevaarherkenning. Het levert de meeste fouten op. Oefen hier specifiek op — het is een andere vaardigheid dan kennis van verkeersregels." },
+        { q: "Heb ik een cursus nodig?", a: "Nee. Veel mensen slagen via zelfstudie. Gebruik onze gratis tips als leidraad en doe veel proefexamens." },
+        { q: "Hoeveel kost het theorie-examen?", a: "Het CBR theorie-examen kost € 42,-. Zak je, dan betaal je opnieuw voor de volgende poging." },
+      ].map(({ q, a }) => (
+        <details class="group border-b-2 border-slate-100 py-4">
+          <summary class="flex cursor-pointer items-center justify-between font-bold text-slate-900 list-none gap-4">
+            {q}
+            <span class="text-2xl font-light text-teal-500 group-open:rotate-45 transition-transform shrink-0 leading-none">+</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-500 leading-relaxed">{a}</p>
+        </details>
+      ))}
+    </div>
+  </Container>
+
+  <!-- Bottom CTA -->
+  <section class="bg-teal-600 text-white">
+    <Container class="py-14 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="text-teal-200 text-xs font-bold uppercase tracking-widest mb-1">Gratis · Geen account nodig</p>
+        <h2 class="text-2xl font-black">Klaar voor je examen?</h2>
+        <p class="text-teal-100 text-sm mt-1">Bekijk alle tips en slaag in één keer voor je CBR theorie-examen.</p>
+      </div>
+      <a href="/blog/" class="shrink-0 inline-flex items-center gap-2 bg-white text-teal-800 font-black px-7 py-3 hover:bg-teal-50 transition-colors text-sm rounded-full">
+        Bekijk alle tips →
+      </a>
+    </Container>
+  </section>
+
+</BaseLayout>

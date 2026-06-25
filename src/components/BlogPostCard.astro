@@ -1,0 +1,23 @@
+---
+import type { Post } from "@lib/posts";
+import { displayTitle, displayDescription } from "@lib/posts";
+interface Props { post: Post; eager?: boolean; index?: number }
+const { post, index = 0 } = Astro.props;
+const title = displayTitle(post);
+const desc = displayDescription(post);
+const href = `/${post.id}/`;
+const num = String(index + 1).padStart(2, "0");
+---
+<article class="group relative bg-white border-2 border-slate-100 hover:border-teal-400 transition-all rounded-2xl overflow-hidden hover:shadow-lg">
+  <div class="p-5">
+    <div class="text-5xl font-black text-teal-100 leading-none mb-3 group-hover:text-teal-200 transition-colors select-none">{num}</div>
+    <h2 class="text-base font-extrabold text-slate-900 leading-tight group-hover:text-teal-700 transition-colors">
+      <a href={href} class="after:absolute after:inset-0">{title}</a>
+    </h2>
+    {desc && <p class="mt-2 text-xs text-slate-500 leading-relaxed line-clamp-3">{desc}</p>}
+    <div class="mt-4 flex items-center gap-1 text-xs font-bold text-teal-600 uppercase tracking-wide">
+      Lees tip <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </div>
+  </div>
+  <div class="h-1 bg-gradient-to-r from-teal-400 to-teal-200 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</article>

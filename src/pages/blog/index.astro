@@ -1,0 +1,37 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+import BlogPostCard from "@components/BlogPostCard.astro";
+import { getHomepagePosts } from "@lib/posts";
+
+const posts = await getHomepagePosts();
+---
+<BaseLayout
+  title="Alle tips — AutotheorieTips"
+  description="Alle praktische tips voor je CBR theorie-examen. Slaag in één keer."
+>
+  <!-- Bold magazineheader -->
+  <div class="bg-teal-600 text-white">
+    <Container class="py-12">
+      <div class="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <p class="text-teal-200 text-xs font-bold uppercase tracking-widest mb-2">AutotheorieTips</p>
+          <h1 class="text-5xl font-black tracking-tighter leading-none">
+            ALLE<br/><span class="text-teal-200">TIPS.</span>
+          </h1>
+        </div>
+        <div class="text-right">
+          <div class="text-5xl font-black text-teal-400">{posts.length}</div>
+          <div class="text-teal-200 text-xs font-bold uppercase tracking-wider">tips beschikbaar</div>
+        </div>
+      </div>
+    </Container>
+  </div>
+
+  <!-- Numbered card grid -->
+  <Container class="py-(--spacing-section)">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((p, i) => <BlogPostCard post={p} index={i} />)}
+    </div>
+  </Container>
+</BaseLayout>

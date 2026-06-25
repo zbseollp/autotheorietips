@@ -1,0 +1,62 @@
+---
+import Container from "@components/Container.astro";
+import { SITE } from "@lib/site";
+const path = new URL(Astro.request.url).pathname;
+const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith(href);
+---
+<header
+  data-header
+  class="sticky top-0 z-50 bg-white border-b-4 border-teal-500"
+>
+  <Container class="flex h-14 items-center justify-between">
+    <a href="/" class="flex items-center gap-2 group">
+      <span class="font-black text-lg tracking-tighter text-slate-900 leading-none">
+        auto<span class="text-teal-600">theorie</span><span class="bg-teal-600 text-white px-1 ml-0.5">TIPS</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Hoofdmenu">
+      {SITE.nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "px-3 py-2 text-sm font-bold rounded transition",
+            isActive(item.href)
+              ? "bg-teal-600 text-white"
+              : "text-slate-600 hover:bg-teal-50 hover:text-teal-700",
+          ]}
+        >{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="/blog/" class="hidden sm:inline-flex items-center gap-1 bg-teal-600 hover:bg-teal-700 px-4 py-2 text-xs font-black text-white transition-colors rounded uppercase tracking-wider">
+        Alle tips
+      </a>
+      <button
+        data-menu-toggle
+        class="inline-flex items-center justify-center p-2 text-slate-600 lg:hidden"
+        aria-label="Menu openen" aria-expanded="false"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </Container>
+
+  <div data-mobile-menu class="hidden border-t border-slate-200 bg-white lg:hidden">
+    <Container class="flex flex-col py-2">
+      {SITE.nav.map((item) => (
+        <a href={item.href} class="px-3 py-2.5 text-sm font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 rounded transition-colors">{item.label}</a>
+      ))}
+    </Container>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const menu = document.querySelector("[data-mobile-menu]");
+  toggle?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+</script>

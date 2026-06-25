@@ -1,0 +1,57 @@
+---
+import Container from "@components/Container.astro";
+import CurrentYear from "@components/CurrentYear.astro";
+import { SITE } from "@lib/site";
+import { getRecentPosts, displayTitle } from "@lib/posts";
+const recent = (await getRecentPosts(4)).map((p) => ({ slug: p.id, title: displayTitle(p) }));
+---
+<footer class="mt-(--spacing-section) bg-slate-800 text-slate-300">
+  <Container class="grid gap-10 py-14 md:grid-cols-12">
+    <div class="md:col-span-4">
+      <div class="flex items-center gap-2 font-display text-lg font-black text-white mb-3">
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-teal-500 text-white font-black text-xs tracking-tighter">AT</span>
+        AutotheorieTips
+      </div>
+      <p class="text-sm text-slate-400 max-w-xs leading-relaxed">
+        De beste tips voor je CBR theorie-examen. Concrete uitleg, slimme strategieën en oefenmateriaal.
+      </p>
+      <a href="/blog/" class="mt-5 inline-flex items-center gap-1.5 rounded-lg bg-teal-600 px-4 py-2 text-sm font-bold text-white hover:bg-teal-700 transition-colors">
+        Bekijk alle tips →
+      </a>
+    </div>
+
+    <div class="md:col-span-2">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-teal-400 mb-3">Tips</h3>
+      <ul class="space-y-2 text-sm">
+        {SITE.nav.map((i) => (
+          <li><a class="text-slate-400 hover:text-white transition-colors" href={i.href}>{i.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="md:col-span-2">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-teal-400 mb-3">Info</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a class="text-slate-400 hover:text-white transition-colors" href="/over-ons/">Over ons</a></li>
+        <li><a class="text-slate-400 hover:text-white transition-colors" href="/contact/">Contact</a></li>
+        <li><a class="text-slate-400 hover:text-white transition-colors" href="/sitemap/">Sitemap</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-4">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-teal-400 mb-3">Recente tips</h3>
+      <ul class="space-y-2 text-sm">
+        {recent.map((p) => (
+          <li><a class="text-slate-400 hover:text-white transition-colors" href={`/${p.slug}/`}>{p.title}</a></li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+
+  <div class="border-t border-slate-700 py-5">
+    <Container class="flex flex-col items-center justify-between gap-2 text-xs text-slate-500 sm:flex-row">
+      <p>© <CurrentYear /> {SITE.name}. Alle rechten voorbehouden.</p>
+      <p>De beste tips voor je CBR theorie-examen.</p>
+    </Container>
+  </div>
+</footer>
